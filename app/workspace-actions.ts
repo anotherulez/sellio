@@ -264,6 +264,24 @@ export async function workspaceAction(_previous:FormState,data:FormData):Promise
         redirectTo="/admin";
         break;
       }
+      case "save-map":
+      case "remove-map": {
+        if (user.role !== "owner") throw new UserError("Требуются права владельца.");
+        const source = z.enum(["yandex","2gis","google"]).parse(input.source);
+        transaction(()=>{
+          if (action === "remove-map") run("DELETE FROM map_integrations WHERE source=?",source);
+          else {
+            if (input.crm !== "on") throw new UserError("Подтвердите право на хранение данных источника.");
+            const key = z.string().trim().min(8).max(300).parse(input.key);
+            run(`INSERT INTO map_integrations VALUES (?,?,?,?) ON CONFLICT(source) DO UPDATE SET
+              credential=excluded.credential,exportable=excluded.exportable,contacts=excluded.contacts`,
+            source,encrypt(key),input.exportable==="on" ? 1 : 0,source==="2gis"&&input.contacts==="on" ? 1 : 0);
+          }
+          record(uid,action,source);
+        });
+        message = action === "save-map" ? "Источник сохранён. Запустите поиск для проверки." : "Ключ удалён из настроек кабинета.";
+        break;
+      }
       case "admin-role":
       case "admin-quota": {
         if (user.role!=="owner") throw new UserError("Требуются права владельца.");

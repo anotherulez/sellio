@@ -12,9 +12,10 @@ type Credential = { seller: number; key: string };
 type Adapter = { allowed: boolean; reference?: string; sync?: (credential: Credential) => Promise<{ lots: Lot[]; orders: Order[] }> };
 
 const loginSchema = z.object({retval:z.literal(0),token:z.string().min(1)});
-const lotSchema = z.object({id_goods:z.coerce.number().int(),name_goods:z.string(),price:z.coerce.number().nonnegative(),visible:z.coerce.number()});
+const money = z.union([z.number(),z.string().regex(/^\d+(\.\d+)?$/).transform(Number)]).pipe(z.number().nonnegative());
+const lotSchema = z.object({id_goods:z.coerce.number().int(),name_goods:z.string(),price:money,visible:z.coerce.number()});
 const saleSchema = z.object({invoice_id:z.coerce.number().int(),product_id:z.coerce.number().int(),product_name:z.string(),date_pay:z.string().nullable(),
-  amount_in:z.coerce.number().nonnegative(),amount_out:z.coerce.number().nonnegative(),amount_currency:z.string(),returned:z.coerce.number(),owner:z.coerce.number()});
+  amount_in:money.nullish(),amount_out:money.nullish(),amount_currency:z.string(),returned:z.coerce.number(),owner:z.coerce.number()});
 const supported: Record<"ggsel" | "plati",number> = { ggsel: 1271, plati: 1 };
 const ownerKeys = { ggsel: "GGSEL_SELLER_API_ALLOWED", plati: "PLATI_SELLER_API_ALLOWED" } as const;
 
@@ -53,11 +54,11 @@ async function digiSync(credential: Credential, owner: number) {
   const salesData = checked(z.object({retval:z.literal(0),rows:z.array(saleSchema).nullable().optional(),pages:z.coerce.number().max(1)}),sales);
   const lots: Lot[] = (productData.rows ?? []).map((p)=>({id:String(p.id_goods),title:p.name_goods,price:Math.round(p.price*100),state:p.visible === 1 ? "Опубликован" : "Скрыт"}));
   const orders: Order[] = (salesData.rows ?? []).flatMap((s)=>{
-    if (s.owner !== owner || !s.date_pay || !["WMR","RUR","RUB"].includes(s.amount_currency)) return [];
+    if (s.owner !== owner || !s.date_pay || s.amount_in == null || !["WMR","RUR","RUB"].includes(s.amount_currency)) return [];
     const created = Date.parse(s.date_pay.replace(" ","T")+"+03:00");
     if (!Number.isFinite(created)) return [];
     return [{id:String(s.invoice_id),lot:String(s.product_id),title:s.product_name,amount:Math.round(s.amount_in*100),
-      fee:s.amount_in >= s.amount_out ? Math.round((s.amount_in-s.amount_out)*100) : null, status:s.returned ? "Возврат" : "Оплачен",created}];
+      fee:s.amount_out != null && s.amount_in >= s.amount_out ? Math.round((s.amount_in-s.amount_out)*100) : null, status:s.returned ? "Возврат" : "Оплачен",created}];
   });
   return {lots,orders};
 }

@@ -55,7 +55,7 @@ async function main() {
     assert.equal(desktopWidth,1440);
     assert.equal(await desktop.evaluate(()=>document.fonts.check('700 40px "Manrope Variable"',"Поиск компаний")),true);
     await desktop.getByRole("button",{name:"Можно ли уже оплатить тариф?"}).click();
-    await desktop.getByText("Цены и предполагаемый период указаны").waitFor();
+    await desktop.getByText("Оплата пока недоступна. На сайте указаны предварительные цены.").waitFor();
     if (process.env.SELLIO_SCREENSHOT_DIR) {
       await desktop.goto(origin);
       await desktop.screenshot({path:require("node:path").join(process.env.SELLIO_SCREENSHOT_DIR,"sellio-desktop.png")});

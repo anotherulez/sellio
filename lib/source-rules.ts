@@ -1,10 +1,17 @@
 import { sources } from "./catalog";
+import { one } from "./db";
+import { decrypt } from "./security";
 
 export type Source = typeof sources[number]["id"];
 
 export function sourceConfig(id: Source) {
   const provider = sources.find((source) => source.id === id)!;
   const prefix = provider.key.replace(/_KEY$/, "");
+  const saved = one<{credential:string;exportable:number;contacts:number}>("SELECT credential,exportable,contacts FROM map_integrations WHERE source=?",id);
+  if (saved) return {
+    ...provider, key:decrypt(saved.credential), active:true, exportable:!!saved.exportable, websiteField:id !== "2gis" || !!saved.contacts,
+    reason:"",
+  };
   const key = process.env[provider.key];
   const active = Boolean(key && process.env[prefix + "_CRM_ALLOWED"] === "true");
   return {

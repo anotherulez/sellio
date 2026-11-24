@@ -21,29 +21,28 @@ export function Reveal() {
 }
 
 const questions = [
-  ["Что такое Sellio?", "Sellio объединяет поиск компаний и проверку их сайтов с управлением магазинами цифровых товаров."],
-  ["В каких странах можно искать компании?", "В России поиск предусмотрен через Яндекс Карты и 2ГИС, в США — через Google Maps. Доступность зависит от настроек источника и разрешений на использование его данных."],
+  ["По каким картам можно искать?", "В России — по Яндекс Картам и 2ГИС, в США — по Google Maps. Для поиска нужен подключённый источник."],
   ["Что означает «Сайт не указан»?", "В карточке источника нет адреса сайта либо источник не передал это поле. У компании при этом может быть сайт."],
-  ["Как узнать, что умеет конкретная интеграция?", "Откройте раздел «Магазины» в кабинете. Доступные действия зависят от площадки, выданных разрешений и настроек подключения."],
-  ["Можно ли уже оплатить тариф?", "Цены и предполагаемый период указаны для ознакомления. Продажи начнутся после согласования условий подписки и подключения платёжного провайдера."],
+  ["Откуда берутся суммы в кабинете?", "Sellio берёт суммы оплаченных заказов из Digiseller. Прибыль появится после того, как будут известны комиссии и себестоимость."],
+  ["Можно ли уже оплатить тариф?", "Оплата пока недоступна. На сайте указаны предварительные цены."],
 ];
 
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return <div className="faq-list">{questions.map(([question, answer], i) => <div className="faq-row" key={question}>
     <button type="button" aria-expanded={open === i} aria-controls={`faq-${i}`} onClick={() => setOpen(open === i ? null : i)}>{question}<Plus size={21}/></button>
-    <p id={`faq-${i}`} hidden={open !== i}>{answer}</p>
+    <div className="faq-answer" id={`faq-${i}`} aria-hidden={open !== i} data-open={open === i}><div><p>{answer}</p></div></div>
   </div>)}</div>;
 }
 
-export function MobileMenu({ preview = false }: { preview?: boolean }) {
+export function MobileMenu() {
   const [open, setOpen] = useState(false);
   return <details className="mobile-menu" open={open} onToggle={(event) => setOpen(event.currentTarget.open)}>
     <summary>Меню</summary><div>
       <a href="#products" onClick={() => setOpen(false)}>Возможности</a>
       <a href="#pricing" onClick={() => setOpen(false)}>Тарифы</a>
       <a href="#faq" onClick={() => setOpen(false)}>FAQ</a>
-      <Link href={preview ? "/demo" : "/login"}>{preview ? "Демо" : "Войти"}</Link>
+      <Link href="/login">Войти</Link>
     </div>
   </details>;
 }

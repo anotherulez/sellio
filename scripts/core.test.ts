@@ -8,6 +8,7 @@ import { paymentProvider } from "../lib/payments";
 import { jobFor, workNext } from "../lib/jobs";
 import { auditWebsite } from "../lib/site-audit";
 import { encrypt, decrypt } from "../lib/security";
+import { overviewFor } from "../lib/metrics";
 
 const devOwner = "owner@example.test";
 const ordinary = "user@example.test";
@@ -100,4 +101,23 @@ test("encrypted goods and credentials authenticate the ciphertext", () => {
   const altered=Buffer.from(first,"base64");
   altered[altered.length-1]^=1;
   assert.throws(()=>decrypt(altered.toString("base64")));
+});
+
+test("sales overview counts synced paid orders and leaves unknown profit blank", () => {
+  const store=randomUUID();
+  const now=Date.now();
+  assert.equal(overviewFor(userId).connected,false);
+  run("INSERT INTO stores(id,user_id,platform,name,status,created,synced) VALUES (?,?,'plati','Тест','connected',?,?)",store,userId,now,now);
+  const insert="INSERT INTO orders(store_id,external_id,title,amount,commission,cost,status,created) VALUES (?,?, 'Тест',?,?,?,?,?)";
+  run(insert,store,"paid",10555,555,null,"Оплачен",now);
+  run(insert,store,"refunded",15000,0,0,"Возврат",now);
+  run(insert,store,"future",20000,0,0,"Оплачен",now+86_400_000);
+  const stats=overviewFor(userId);
+  assert.equal(stats.revenue,105.55);
+  assert.equal(stats.orders,1);
+  assert.equal(stats.profit,null);
+  assert.equal(stats.lastSync,now);
+  assert.equal(overviewFor(ownerId).connected,false);
+  run("UPDATE orders SET cost=2000 WHERE store_id=? AND external_id='paid'",store);
+  assert.equal(overviewFor(userId).profit,80);
 });

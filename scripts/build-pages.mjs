@@ -13,10 +13,10 @@ const stage = mkdtempSync(join(workRoot, "site-"));
 for (const directory of ["app", "components", "lib", "public"]) mkdirSync(join(stage,directory));
 for (const file of [
   "app/page.tsx", "app/layout.tsx", "app/not-found.tsx", "app/globals.css", "app/workspace.css",
-  "components/brand.tsx", "components/overview.tsx", "components/landing-interactions.tsx", "components/site-link.tsx", "lib/plans.ts",
+  "components/brand.tsx", "components/overview.tsx", "components/landing-interactions.tsx", "components/site-link.tsx", "lib/plans.ts", "lib/public-app.ts",
 ]) cpSync(resolve(file),join(stage,file));
 cpSync(resolve("pages-preview/icon.png"),join(stage,"public/icon.png"));
-for (const route of ["demo","contact","privacy"]) cpSync(resolve("pages-preview",route),join(stage,"app",route),{recursive:true});
+for (const route of ["demo","contact","privacy","login"]) cpSync(resolve("pages-preview",route),join(stage,"app",route),{recursive:true});
 
 writeFileSync(join(stage,"next.config.mjs"),`export default {
   output: "export",
