@@ -1,0 +1,27 @@
+1:"$Sreact.fragment"
+2:"/sellio/_next/static/chunks/3qfy96eoyh-ek.js"
+3:I[39756,["$2"],"default"]
+4:I[37457,["$2"],"default"]
+b:I[97367,["$2"],"OutletBoundary"]
+c:"$Sreact.suspense"
+f:"ViewportBoundary"
+10:I[97367,["$2"],"$f"]
+11:"MetadataBoundary"
+12:I[97367,["$2"],"$11"]
+13:I[27201,["$2"],"IconMark"]
+:HL["/sellio/_next/static/chunks/3l7omzgfsvayd.css","style"]
+6:X
+9:X
+9:C
+a:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","main",null,{"className":"simple-page wrap","children":[["$","a",null,{"href":"/sellio/","className":"brand","aria-label":"Sellio — на главную","children":[["$","span",null,{"className":"mark","aria-hidden":"true","children":[["$","i",null,{}],["$","i",null,{}],["$","i",null,{}]]}]," Sellio",["$","span",null,{"children":"."}]]}],["$","article",null,{"children":[["$","h1",null,{"children":"Вход в Sellio"}],[["$","p",null,{"children":"Кабинет запускается на компьютере владельца. Откройте вход на том же компьютере."}],["$","a",null,{"className":"action primary export-action","href":"http://127.0.0.1:3050/login","children":["Войти на этом компьютере ",["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":17,"height":17,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-arrow-up-right","children":[["$","path","1tivn9",{"d":"M7 7h10v10"}],["$","path","1vkiza",{"d":"M7 17 17 7"}],"$undefined"]}]]}]]]}]]}],[["$","script","script-0",{"src":"/sellio/_next/static/chunks/3zt_16xndew4w.js","async":true}]],["$","$Lb",null,{"children":["$","$c",null,{"name":"Next.MetadataOutlet","children":"$@d"}]}]]}],"p":"$@e","v":null,"s":"$6"}}]]
+7:[["children",{"s":"login","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]]}],"p":"$@8","v":"$9","s":"$6"},"c":"$Qa"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/sellio/_next/static/chunks/3l7omzgfsvayd.css","precedence":"next"}],["$","script","script-0",{"src":"/sellio/_next/static/chunks/3qfy96eoyh-ek.js","async":true}]],["$","html",null,{"lang":"ru","children":["$","body",null,{"children":["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}],"notFound":[["$","main",null,{"className":"simple-page wrap","children":[["$","a",null,{"href":"/sellio/","className":"brand","aria-label":"Sellio — на главную","children":[["$","span",null,{"className":"mark","aria-hidden":"true","children":[["$","i",null,{}],["$","i",null,{}],["$","i",null,{}]]}]," Sellio",["$","span",null,{"children":"."}]]}],["$","article",null,{"children":[["$","h1",null,{"children":"Страница не найдена"}],["$","p",null,{"children":"Проверьте адрес или вернитесь на главную."}],["$","a",null,{"href":"/sellio/","className":"text-action","children":"На главную"}]]}]]}],[]]}]}]}]]}],"p":"$@5","v":null,"s":"$6"},"c":"$Q7"},"h":{"r":["$","$1","h",{"children":[null,["$","$L10",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L12",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$c",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Вход · Sellio"}],["$","meta","1",{"name":"description","content":"Ищите компании, оценивайте их сайты и управляйте продажами на маркетплейсах из одного кабинета."}],["$","link","2",{"rel":"icon","href":"/sellio/icon.png"}],["$","$L13","3",{}]]}]}],null]}],null]}],"p":"$@14","v":null,"s":"$6"}},"a":"$@15","u":"$@16","b":"T5v7h6DKMgvcNPbHtltTr"}
+d:null
+6:300
+16:true
+6:C
+15:0
+8:"$undefined"
+5:"$undefined"
+14:"$undefined"
+e:"$undefined"

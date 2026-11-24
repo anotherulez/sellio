@@ -1,5 +1,5 @@
-:HL["/sellio/_next/static/chunks/0c634reiuv5fw.css","style"]
+:HL["/sellio/_next/static/chunks/3l7omzgfsvayd.css","style"]
 :HC["/",""]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"demo","h":96,"c":"$Q2"}]]
-0:{"b":"I5_MRPvMG6ucmKbY5Vw2W","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"T5v7h6DKMgvcNPbHtltTr","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
